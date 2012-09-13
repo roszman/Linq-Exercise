@@ -6,7 +6,10 @@ namespace LinqExercise
 	{
 		public static void Main (string[] args)
 		{
-			Console.WriteLine ("Hello World!");
+			//Console.WriteLine ("Hello World!");
+			Linq2Object.DeferredOperatorsExamples example = new LinqExercise.Linq2Object.DeferredOperatorsExamples();
+			example.Run();
 		}
 	}
+
 }
