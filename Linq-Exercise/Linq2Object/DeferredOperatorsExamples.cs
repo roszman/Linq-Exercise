@@ -15,7 +15,7 @@ namespace LinqExercise.Linq2Object
 
 		public void Run ()
 		{
-			ConcatOperator();
+			ThenByDescendingOperator2nd();
 		}
 
 		#region Where Operator
@@ -279,6 +279,171 @@ namespace LinqExercise.Linq2Object
 
 		#endregion
 
+		#region OrderBy operator
+
+		/*pubic static IOrderedEnumerable<T> OrderBy<T, K>(
+		 * 	this IEnumerable<T> source,
+		 * 	Func<T, K> keySelector)
+		 * where
+		 * 	K : IComparable<K>;
+		 * */
+		void OrderByOperator ()
+		{
+			string[] presidents = Presidents.GetPresidentsStringArray ();
+
+			IOrderedEnumerable<string> sequence = presidents.OrderBy (p => p.Length);
+
+			foreach (string item in sequence) {
+				Console.WriteLine(item);
+			}
+		}
+
+		/*pubic static IOrderedEnumerable<T> OrderBy<T, K>(
+		 * 	this IEnumerable<T> source,
+		 * 	Func<T, K> keySelector,
+		 * IComparer<K> comparer);
+		 * */
+		void OrderByOperator2nd ()
+		{
+			string[] presidents = Presidents.GetPresidentsStringArray ();
+			MyVowelToConsonantRatioComparer myComparer = new MyVowelToConsonantRatioComparer ();
+			IOrderedEnumerable<string> sequence = presidents.OrderBy ((p => p), myComparer);
+
+			foreach (string item in sequence) {
+				int vCount = 0;
+				int cCount = 0;
+
+				myComparer.GetVowelConsonantCount(item, ref vCount, ref cCount);
+				double dRatio = (double)vCount/(double)cCount;
+
+				Console.WriteLine("{0} - {1} - {2}:{3}", item, dRatio, vCount, cCount );
+			}
+		}
+		#endregion
+
+		#region OrderByDescending operator
+
+		/*public static IOrderedEnumerable<T> OrderByDescending<T, K>(
+		 * 	this IEnumerable<T> source,
+		 * 	Func<T, K> keySelector)
+		 * where 
+		 * 	K : IComparable<K>;
+		 * */
+		void OrderByDescendingOperator ()
+		{
+			string[] presidents = Presidents.GetPresidentsStringArray ();
+
+			IOrderedEnumerable<string> sequence = presidents.OrderByDescending (p => p.Length);
+
+			foreach (string item in sequence) {
+				Console.WriteLine(item);
+			}
+		}
+
+		/*public static IOrderedEnumerable<T> OrderByDescending<T, K>(
+		 * 	this IEnumerable<T> source,
+		 * 	Func<T, K> keySelector,
+		 * 	IComparer<K> comparer);
+		 * */
+		void OrderByDescendingOperator2nd ()
+		{
+			string[] presidents = Presidents.GetPresidentsStringArray ();
+			MyVowelToConsonantRatioComparer myComparer = new MyVowelToConsonantRatioComparer ();
+
+			IOrderedEnumerable<string> sequence = presidents.OrderByDescending ((p => p), myComparer);
+
+			foreach (string item in sequence) {
+				int vCount = 0;
+				int cCount = 0;
+				
+				myComparer.GetVowelConsonantCount(item, ref vCount, ref cCount);
+				double dRatio = (double)vCount/(double)cCount;
+				
+				Console.WriteLine("{0} - {1} - {2}:{3}", item, dRatio, vCount, cCount );
+			}
+		}
+
+		#endregion
+
+		/*Unlike OrderBy and OrderByDescending, ThenBy and ThenByDescending are stable sorts. 
+		 * This means it will preserve the input order of the elements of equal keys. 
+		 * If we two input elements come into the ThenBy operator in particual order and the key value for both elements is the same, 
+		 * the order of the output elements is guaranteed to be maintained.
+		 * */
+
+		#region ThenBy operator
+		/*public static IOrderedEnumerable<T> ThenBy<T, K>(
+		 * 	this IOrderedEnumerable<T> source,
+		 * 	Func<T,K> keySelector)
+		 * where
+		 * 	K : IComparable<K>;
+		 * */
+		void ThenByOperator ()
+		{
+			string[] presidents = Presidents.GetPresidentsStringArray ();
+
+			IOrderedEnumerable<string> sequence = presidents.OrderBy(p => p.Length).ThenBy (p => p);
+
+			foreach (string item in sequence) {
+				Console.WriteLine(item);
+			}
+		}
+
+		/*public static IOrderedEnumerable<T> ThenBy<T, K>(
+		 * 	this IOrderedEnumerable<T> source,
+		 * 	Func<T,K> keySelector,
+		 * 	IComparer<K> comparer);
+		 * */
+		void ThenByOperator2nd ()
+		{
+			string[] presidents = Presidents.GetPresidentsStringArray ();
+			MyVowelToConsonantRatioComparer myComparer = new MyVowelToConsonantRatioComparer();
+
+			IOrderedEnumerable<string> sequence = presidents.OrderBy(p => p.Length).ThenBy ((p => p),myComparer);
+			
+			foreach (string item in sequence) {
+				Console.WriteLine(item);
+			}
+		}
+
+		#endregion
+
+		#region ThenByDescending operator
+		/*public static IOrderedEnumerable<T> ThenByDescending<T, K>(
+		 * 	this IOrderedEnumerable<T> source,
+		 * 	Func<T,K> keySelector)
+		 * where
+		 * 	K : IComparable<K>;
+		 * */
+		void ThenByDescendingOperator ()
+		{
+			string[] presidents = Presidents.GetPresidentsStringArray ();
+			
+			IOrderedEnumerable<string> sequence = presidents.OrderBy(p => p.Length).ThenByDescending (p => p);
+			
+			foreach (string item in sequence) {
+				Console.WriteLine(item);
+			}
+		}
+		
+		/*public static IOrderedEnumerable<T> ThenByDescending<T, K>(
+		 * 	this IOrderedEnumerable<T> source,
+		 * 	Func<T,K> keySelector,
+		 * 	IComparer<K> comparer);
+		 * */
+		void ThenByDescendingOperator2nd ()
+		{
+			string[] presidents = Presidents.GetPresidentsStringArray ();
+			MyVowelToConsonantRatioComparer myComparer = new MyVowelToConsonantRatioComparer();
+			
+			IOrderedEnumerable<string> sequence = presidents.OrderBy(p => p.Length).ThenByDescending ((p => p),myComparer);
+			
+			foreach (string item in sequence) {
+				Console.WriteLine(item);
+			}
+		}
+		
+		#endregion
 	}
 
 }
