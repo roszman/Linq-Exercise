@@ -16,6 +16,7 @@ namespace LinqExercise.Linq2Object
 		public void Run ()
 		{
 			UnionOperator();
+            Console.ReadKey();
 		}
 
 		#region Where Operator
