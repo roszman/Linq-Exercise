@@ -44,11 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\MyFounderNumberComparer.cs" />
+    <Compile Include="Helpers\MyStringifiedNumberComparer.cs" />
     <Compile Include="Helpers\MyVowelToConsonantRatioComparer.cs" />
     <Compile Include="Helpers\OneBigHelper.cs" />
     <Compile Include="IExample.cs" />
     <Compile Include="Linq2Object\DeferredOperatorsExamples.cs" />
     <None Include="Main.cs.old" />
+    <Compile Include="Linq2Object\NonDeferredOperatorsExamples.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

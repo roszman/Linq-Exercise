@@ -15,7 +15,8 @@ namespace LinqExercise.Linq2Object
 
 		public void Run ()
 		{
-			UnionOperator();
+            EmptyOperator();
+            Console.WriteLine("\nPress any key to close.");
             Console.ReadKey();
 		}
 
@@ -673,7 +674,223 @@ namespace LinqExercise.Linq2Object
 		}
 
 		#endregion
-	}
+
+        #region Intersect operator
+
+        /*public static IEnumerable<T> Intersect<T>(
+         *  this IEnumerable<T> first,
+         *  IEnumerable<T> second);
+         *  */
+
+
+        void IntersectOperator()
+        {
+            string[] presidents = Presidents.GetPresidentsStringArray();
+            IEnumerable<string> first = presidents.Take(5);
+            IEnumerable<string> second = presidents.Skip(4);
+            //fifth element is in both sequences
+
+            IEnumerable<string> intersect = first.Intersect(second);
+
+            Console.WriteLine("The count of the president array is: " + presidents.Count());
+            Console.WriteLine("The count of first sequence is " + first.Count());
+            Console.WriteLine("The count of second sequence is " + second.Count());
+            Console.WriteLine("The cout of intersect sequence is " + intersect.Count());
+
+        }
+
+        #endregion
+
+        #region Except operator 
+
+        /*public static IEnumerable<T> Except<T>(
+         *  this IEnumerable<T> first,
+         *  IEnumerable<T> second);
+         *  */
+
+        void ExceptOperator()
+        {
+            string[] presidents = Presidents.GetPresidentsStringArray();
+            IEnumerable<string> processed = presidents.Take(5);
+
+            IEnumerable<string> exceptions = presidents.Except(processed);
+
+            foreach (string name in exceptions)
+            {
+                Console.WriteLine(name);
+            }
+        }
+
+        #endregion
+
+        #region Cast operator
+
+        /*public static IEnumerable<T> Cast<T>(
+         *  this IEnumerable source);
+         *  */
+
+        void CastOPerator()
+        {
+            ArrayList employees = Employee.GetEmployeesArrayList();
+            Console.WriteLine("The data type of employees is: " + employees.GetType());
+
+            var seq = employees.Cast<Employee>();
+            Console.WriteLine("The data type of seq is " + seq.GetType());
+
+            var emps = seq.OrderBy(e => e.lastName);
+
+            foreach (Employee emp in emps)
+            {
+                Console.WriteLine("{0} {1}", emp.firstName, emp.lastName);
+            }
+        }
+
+        #endregion
+
+        #region OfTypeOperator
+
+        /*public static IEnumerable<T> OfType<T>(
+         *  this IEnumerable source);
+         *  */
+
+        void OfTypeOperator()
+        {
+            ArrayList employees = Employee.GetEmployeesArrayList();
+            EmployeeOptionEntry[] empOptions = EmployeeOptionEntry.GetEmployeeOptionEntries();
+
+            ArrayList al = new ArrayList();
+            al.Add(employees[0]);
+            al.Add(employees[1]);
+            al.Add(empOptions[0]);
+            al.Add(empOptions[1]);
+            al.Add(employees[3]);
+            al.Add(empOptions[3]);
+
+            var items = al.Cast<Employee>();
+
+            Console.WriteLine("Attemting to use the Cast operator ...");
+            try
+            {
+                foreach (Employee item in items)
+                {
+                    Console.WriteLine("{0} {1} {2}", item.id, item.firstName, item.lastName);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("{0} {1}", ex.Message, System.Environment.NewLine);
+            }
+
+            Console.WriteLine("Attempting to use the OfType operator...");
+            var items2 = al.OfType<Employee>();
+            foreach (Employee item in items2)
+            {
+                Console.WriteLine("{0} {1} {2}", item.id, item.firstName, item.lastName);
+            }
+        }
+
+        #endregion
+
+        #region AsEnumerable operator
+
+        /*public static IEnumerable<T> AsEnumerable<T>(
+         *  this IEnuerable<T> source);
+         *  */
+
+        void AsEnumerableOperator()
+        {
+            //LINQ to SQL example
+            //IQuerable<T> to IEnumerable<T>
+        }       
+
+        #endregion
+
+        #region DefaultIfEmpty operator
+
+        /*public static IEnumerable<T> DefaultIfEmpty<T>(
+         *  this IEnumerable<T> source);
+         *  */
+        void DefaultIfEnumerableOperator()
+        {
+            string[] presidents = Presidents.GetPresidentsStringArray();
+
+            string jones = presidents.Where(n => n.Equals("Jones")).DefaultIfEmpty().First();
+            if (jones != null)
+            {
+                Console.WriteLine("Jones was found");
+            }
+            else
+            {
+                Console.WriteLine("Jones was not found");
+            }
+        }
+
+        /*public static DefaultIfEmpty<T>(
+         *  this IEnumerable<T> source,
+         *  T defaultValue);
+         *  */
+        void DefaultIfEmptyOperator2nd()
+        {
+            string[] presidents = Presidents.GetPresidentsStringArray();
+
+            string name = presidents.Where(n => n.Equals("Jones")).DefaultIfEmpty("Missing").First();
+            Console.WriteLine(name);
+        }
+
+        #endregion
+
+        #region Range operator
+
+        /*public static IEnumerable<int> Range(
+         *  int start,
+         *  int count);
+         *  */
+        void RangeOperator()
+        {
+            IEnumerable<int> ints = Enumerable.Range(1, 10);
+
+            foreach (int i in ints)
+            {
+                Console.WriteLine(i);
+            }
+        }
+
+        #endregion
+
+        #region Repeat operator
+
+        /*public static IEnumerable<t> Repeat<T>(
+         *  T element,
+         *  int count);
+         *  */
+        void RepeatOperator()
+        {
+            IEnumerable<int> ints = Enumerable.Repeat(2, 10);
+
+            foreach (int i in ints)
+            {
+                Console.WriteLine(i);
+            }
+        }
+
+        #endregion
+
+        #region Empty operator
+
+        //public static IEnumerable<T> Empty<T>();
+        void EmptyOperator()
+        {
+            IEnumerable<string> strings = Enumerable.Empty<string>();
+            foreach (string str in strings)
+            {
+                Console.WriteLine(str);
+            }
+            Console.WriteLine(strings.Count());
+        }
+
+        #endregion
+
+    }
 
 }
 
