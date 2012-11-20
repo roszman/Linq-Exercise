@@ -10,7 +10,7 @@ namespace LinqExercise.Linq2Object
     {
         public void Run()
         {
-            FirstOrDefaultOperator2nd();
+            SumOperator2nd();
             Console.WriteLine("\nPress any key to close.");
             Console.ReadKey();
         }
@@ -298,5 +298,369 @@ namespace LinqExercise.Linq2Object
         }
 
         #endregion
+
+        #region Last operator
+
+        /*public static T Last<T>(
+         *  this IEnumerable<T> source)
+         *  */
+        void LastOperator()
+        {
+            string[] presidents = Presidents.GetPresidentsStringArray();
+
+            string name = presidents.Last();
+            Console.WriteLine(name);
+        }
+
+        /*public static T Last<T>(
+         *  this IEnumerable<T> source,
+         *  Func<T, bool> predicate);
+         *  */
+        void LastOperator2nd()
+        {
+            string[] presidents = Presidents.GetPresidentsStringArray();
+
+            string name = presidents.Last(p => p.StartsWith("H"));
+            Console.WriteLine(name);
+        }
+
+        #endregion
+
+        #region LastOrDefault operator
+
+        /*public statsic T LastOrDefault<T>(
+         *  this IENumerable<T> source);
+         *  */
+        void LastOrDefaultOperator()
+        {
+            string[] presidents = Presidents.GetPresidentsStringArray();
+
+            string name = presidents.Take(0).LastOrDefault();
+            Console.WriteLine(name == null ? "NULL" : name);
+
+            name = presidents.LastOrDefault();
+            Console.WriteLine(name == null ? "NULL" : name);
+        }
+
+        /*public static T LastOrDefault(
+         *  this IEnumerable<T> source,
+         *  Func<T, bool> predicate);
+         *  */
+        void LastOrDefaultOperator2nd()
+        {
+            string[] presidents = Presidents.GetPresidentsStringArray();
+
+            string name = presidents.LastOrDefault(p => p.StartsWith("Z"));
+            Console.WriteLine(name == null ? "NULL" : name);
+
+        }
+        #endregion
+
+        #region Single operator
+
+        /*public static T Single<T>(
+         *  this IEnumerable<T> source);
+         *  */
+        void SingleOperator()
+        {
+            Employee emp = Employee.GetEmployeesArray()
+                .Where(e => e.id == 3).Single();
+
+            Console.WriteLine("{0} {1}", emp.firstName, emp.lastName);
+        }
+
+        /*public static T Single<T>(
+         *  this IEnumerable<T> source,
+         *  Func<T, bool> predicate);
+         *  */
+        void SingleOperator2nd()
+        {
+            Employee emp = Employee.GetEmployeesArray()
+                .Single(e => e.id == 3);
+
+            Console.WriteLine("{0} {1}", emp.firstName, emp.lastName);
+        }
+        #endregion
+
+        #region SingleOrDefault opeartor
+
+        /*public static T SingleOrDefault(
+         *  this IEnumerable<T> source);
+         *  */
+        void SingleOrDefaultOperator()
+        {
+            Employee emp = Employee.GetEmployeesArray()
+                .Where(e => e.id == 5).SingleOrDefault();
+
+            Console.WriteLine(emp == null ? "NULL": string.Format("{0} {1}",emp.firstName, emp.lastName));
+
+            emp = Employee.GetEmployeesArray()
+                .Where(e => e.id == 4).SingleOrDefault();
+
+            Console.WriteLine(emp == null ? "NULL" : string.Format("{0} {1}", emp.firstName, emp.lastName));
+        }
+
+        /*public static T SingleOrDefault(
+         *  this IEnumerable<T> source,
+         *  Func<T, bool> predicate);
+         *  */
+        void SingleOrDefaultOperator2nd()
+        {
+            Employee emp = Employee.GetEmployeesArray()
+                .SingleOrDefault(e => e.id == 4);
+
+            Console.WriteLine(emp == null ? "NULL" : string.Format("{0} {1}", emp.firstName, emp.lastName));
+
+            emp = Employee.GetEmployeesArray()
+                .SingleOrDefault(e => e.id == 5);
+
+            Console.WriteLine(emp == null ? "NULL" : string.Format("{0} {1}", emp.firstName, emp.lastName));
+        }
+
+        #endregion
+
+        #region ElementAt operator
+
+        /*public static T ElementAt<T>(
+         *  this IEnumerable<T> source,
+         *  int index);
+         *  */
+        void ElementAtOperator()
+        {
+            Employee emp = Employee.GetEmployeesArray()
+                .ElementAt(3);
+
+            Console.WriteLine("{0} {1}", emp.firstName, emp.lastName);
+        }
+
+        #endregion
+
+        #region ElementAtOrDefault operator
+
+        /*public static T ElementAtOrDefault(
+         *  this IEnumerable<T> source
+         *  int index);
+         *  */
+        void ElementAtOrDefaultOperator()
+        {
+            Employee emp = Employee.GetEmployeesArray()
+                .ElementAtOrDefault(3);
+
+            Console.WriteLine(emp == null ? "NULL" : string.Format("{0} {1}", emp.firstName, emp.lastName));
+        }
+
+        #endregion
+
+        #region Any operator
+
+        /*public static bool Any<T>(
+         *  this IEnuemrable<T> source);
+         *  */
+        void AnyOpeartor()
+        {
+            bool any = Enumerable.Empty<string>().Any();
+
+            Console.WriteLine(any);
+
+            any = Presidents.GetPresidentsStringArray().Any();
+            Console.WriteLine(any);
+        }
+
+        /*public static bool Any<T>(
+         *  this IENuemrable<T> source,
+         *  Func<T, bool> predicate);
+         *  */
+        void AnyOperator2nd()
+        {
+            bool any = Presidents.GetPresidentsStringArray().Any(p => p.StartsWith("Z"));
+            Console.WriteLine(any);
+
+            any = Presidents.GetPresidentsStringArray().Any(p => p.StartsWith("A"));
+            Console.WriteLine(any);
+        }
+
+        #endregion
+
+        #region All operator
+
+        /*public static bool All<T>(
+         *  this IEnumerable<T> source,
+         *  Func<T, bool> predicate);
+         *  */
+        void AnyOperator()
+        {
+            bool all = Presidents.GetPresidentsStringArray()
+                .All(s => s.Length > 5);
+            Console.WriteLine(all);
+
+            all = Presidents.GetPresidentsStringArray()
+                .All(s => s.Length > 3);
+            Console.WriteLine(all);
+        }
+
+        #endregion
+
+        #region Contains operator
+
+        /*public static bool Contains<T>(
+         *  IEnumerbale<T> source,
+         *  T value);
+         *  */
+        void ContainsOperator()
+        {
+            bool contains = Presidents.GetPresidentsStringArray()
+                .Contains("Rattz");
+
+            Console.WriteLine(contains);
+
+            contains = Presidents.GetPresidentsStringArray()
+               .Contains("Hayes");
+
+            Console.WriteLine(contains);
+        }
+
+        /*public static bool Contains<T>(
+         *  this IEnumerable<T> source,
+         *  T value,
+         *  IEqualityComparer<T> comparer);
+         *  */
+        void ContainsOperator2nd()
+        {
+            string[] stringifiedNums = { "001", "49", "017", "0080", "00027", "2" };
+
+            bool contains = stringifiedNums.Contains("000000002", new MyStringifiedNumberComparer());
+            Console.WriteLine(contains);
+
+            contains = stringifiedNums.Contains("0002657", new MyStringifiedNumberComparer());
+            Console.WriteLine(contains);
+        }
+
+        #endregion
+
+        #region Count operator
+
+        /*public static int Count<T>(
+         *  this IEnuemrable<T> source);
+         *  */
+        void CountOperator()
+        {
+            int count = Presidents.GetPresidentsStringArray()
+                .Count();
+            Console.WriteLine(count);
+        }
+
+        /*public static int Cunt<T>(
+         *  this IEnumerable<T> source,
+         *  Func<T, bool> predicate);
+         *  */
+        void CountOperator2nd()
+        {
+            int count = Presidents.GetPresidentsStringArray()
+                .Count(p => p.StartsWith("J"));
+            Console.WriteLine(count);
+        }
+
+        #endregion
+
+        #region LongCount operator
+
+        /*public static long LongCount<T>(
+         *  this IEnumerable<T> source);
+         *  */
+        void LongCountOperator()
+        {
+            long count = Enumerable.Range(0, int.MaxValue)
+                .Concat(Enumerable.Range(0, int.MaxValue))
+                .LongCount();
+            Console.WriteLine(count);
+        }
+
+        /*public static long LongCount(
+         *  this IEnuemarble<T> source,
+         *  Func<T, bool> predicate);
+         *  */
+        void LongCountOperator2nd()
+        {
+            long count = Enumerable.Range(0, int.MaxValue)
+                .Concat(Enumerable.Range(0, int.MaxValue))
+                .LongCount(i => i > 1 && i < 4);
+            Console.WriteLine(count);
+        }
+
+        #endregion
+
+        #region Sum operator
+
+        /*public static Numeric Sum(
+         *  this IEnumerable<Numeric> source);
+         *  */
+        void SumOperator()
+        {
+            IEnumerable<int> ints = Enumerable.Range(1, 10);
+
+            foreach (int i in ints)
+            {
+                Console.WriteLine(i);
+            }
+
+            Console.WriteLine("--");
+
+            int sum = ints.Sum();
+            Console.WriteLine(sum);
+        }
+
+        /*public static Numeric Sum<T>(
+         *  this IEnumerable<T> source,
+         *  Func<T, numeric>);
+         *  */
+        void SumOperator2nd()
+        {
+            IEnumerable<EmployeeOptionEntry> options = EmployeeOptionEntry.GetEmployeeOptionEntries();
+
+            long optionSum = options.Sum(o => o.optionsCount);
+            Console.WriteLine("The sum of the employee options is: {0}", optionSum);
+        }
+
+
+        #endregion
+
+        #region Min operator
+
+        /*public static Numeric Min(
+         *  this IEnumerable<Numeric> source);
+         *  */
+        void MinOperator()
+        {
+
+        }
+
+        /*public ststic T Min<T>(
+         *  this IEnumerable<T> source);
+         *  */
+        void MinOperator2nd()
+        {
+
+        }
+
+        /*public static Numeric Min<T>(
+         *  this IEnumerable<T> source,
+         *  Func<T, Numeric> selector);
+         *  */
+        void MinOperator3rd()
+        {
+
+        }
+
+        /*public static S Min<T, S>(
+         *  this IEnuemrable<T> source,
+         *  Func<T, S> selector);
+         *  */
+        void MinOperator4th()
+        {
+
+        }
+
+        #endregion
+
     }
 }
